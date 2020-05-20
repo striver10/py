@@ -29,11 +29,12 @@ from 	studs s
 		left join checks c on s.st_id=c.st_id
 group by s.test_grp)
 
+
 select 	t1.test_grp,
 		(sum(t2.rev)::decimal / sum(t1.users)::decimal) as ARPU,
 		(sum(t2.rev)::decimal / sum(t1.active_users)::decimal) as ARPAU,
 		(sum(t2.paying_users)::decimal / sum(t1.users)::decimal) as CR_pay,
-		(sum(t1.active_users)::decimal / sum(t2.paying_users)::decimal) as CR_act_pay,
-		(sum(t1.active_users_Math)::decimal / sum(t2.paying_users_Math)::decimal) as CR_Math_active_to_pay
+		(sum(t2.paying_users)::decimal / sum(t1.active_users)::decimal) as CR_act_pay,
+		(sum(t2.paying_users_Math)::decimal / sum(t1.active_users_Math)::decimal) as CR_Math_active_to_pay
 from t1 join t2 on t1.test_grp = t2.test_grp
 group by t1.test_grp
